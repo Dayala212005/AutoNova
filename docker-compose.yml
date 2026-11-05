@@ -1,3 +1,9 @@
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   nginx:
     image: nginx:1.27-alpine
@@ -12,6 +18,11 @@ services:
     networks:
       - frontnet
     restart: unless-stopped
+    logging: *logging
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 200
+    mem_limit: 256m
 
   app:
     build: ./app
@@ -32,6 +43,9 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
+    logging: *logging
+    pids_limit: 200
+    mem_limit: 512m
 
   db:
     image: postgres:16-alpine
@@ -47,6 +61,11 @@ services:
       timeout: 3s
       retries: 10
     restart: unless-stopped
+    logging: *logging
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 200
+    mem_limit: 512m
 
 networks:
   frontnet:
