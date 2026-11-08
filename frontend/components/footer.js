@@ -5,7 +5,7 @@ function renderFooter(containerId) {
   container.innerHTML = `
     <footer class="footer" id="contacto">
       <div>AutoNova - Ventas de automóviles</div>
-      <div>Contacto: contacto@autonova.com | +503 2200-0000</div>
+      <div>Contacto: autonovasv@gmail.com | +503 2200-0000</div>
     </footer>
   `;
 }
