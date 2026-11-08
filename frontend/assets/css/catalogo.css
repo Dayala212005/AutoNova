@@ -1,0 +1,200 @@
+/* HERO & CATÁLOGO  */
+
+.hero-section {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2.5rem;
+  align-items: center;
+  padding: 2rem 4rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.hero-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6366f1;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.75rem;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.hero-title span {
+  background-color: var(--yellow-accent, #facc15);
+  color: #0f172a;
+  padding: 0 0.4rem;
+  border-radius: 10px;
+}
+
+.hero-desc {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+
+/* CORTINILLA BUSCADOR */
+.search-box-container {
+  background: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  max-width: 460px;
+}
+
+.search-box-container label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.6rem;
+  color: #334155;
+}
+
+.search-input-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.search-input-group input {
+  flex: 1;
+  padding: 0.65rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+/* BANNER AMARILLO DERECHO */
+.hero-banner {
+  background: #facc15;
+  border-radius: 28px;
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.banner-badge {
+  background: white;
+  color: #1e293b;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+.banner-shape-red {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  background-color: #f87171;
+  border-radius: 50%;
+}
+
+.banner-shape-teal {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  width: 90px;
+  height: 90px;
+  background-color: #14b8a6;
+  border-radius: 50%;
+}
+
+.car-image-container {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SECCIÓN CATÁLOGO Y GRID */
+.catalog-container {
+  max-width: 1300px;
+  margin: 2rem auto 4rem auto;
+  padding: 0 4rem;
+}
+
+.catalog-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 2rem;
+}
+
+.car-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+/* TARJETAS DE VEHÍCULOS (CARDS) */
+.car-card {
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.car-card-img {
+  height: 170px;
+  border-radius: 16px;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Colores de fondo suaves para las tarjetas */
+.car-card:nth-child(1) .car-card-img { background-color: #fee2e2; }
+.car-card:nth-child(2) .car-card-img { background-color: #ccfbf1; }
+.car-card:nth-child(3) .car-card-img { background-color: #e0e7ff; }
+
+.car-info h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.3rem;
+}
+
+.car-info p {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+.car-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 1.25rem;
+  margin-top: auto;
+}
+
+.car-price {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+}

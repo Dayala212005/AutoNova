@@ -1,11 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
-  <title>AutoNova</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoNova - Agencia de Automóviles</title>
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/catalogo.css">
 </head>
-<body>
-  <h1>AutoNova funcionando</h1>
-</body>
-</html>
 
+<body>
+
+  <header id="main-navbar"></header>
+
+  <main>
+    <section class="hero-section">
+      <div class="hero-content">
+        <p class="hero-tag">AGENCIA DE AUTOMÓVILES</p>
+        <h1 class="hero-title">Encuentra el <span>auto</span> que va contigo</h1>
+        <p class="hero-desc">Explora el catálogo, elige tu vehículo y recibe tu factura en minutos.</p>
+
+        <div class="search-box-container">
+          <label for="search-input">Buscar por tipo o modelo</label>
+          <form id="search-form" class="search-input-group">
+            <input type="text" id="search-input" placeholder="Ej. SUV, sedán, pickup...">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="hero-banner">
+        <span class="banner-badge">Nuevos ingresos cada semana</span>
+        <div class="banner-shape-red"></div>
+        <div class="banner-shape-teal"></div>
+        <div class="car-image-container"></div>
+      </div>
+    </section>
+
+    <section class="catalog-container" id="catalog">
+      <h2 class="catalog-title">Catálogo destacado</h2>
+
+      <div id="car-grid" class="car-grid"></div>
+    </section>
+  </main>
+
+  <div id="main-footer"></div>
+
+  <script src="./components/navbar.js"></script>
+  <script src="./components/footer.js"></script>
+  <script src="./js/catalogo.js"></script>
+
+  <script>
+    // Ejecutar las funciones una vez que la página carga
+    window.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('main-navbar');
+      renderFooter('main-footer');
+      initCatalog();
+    });
+  </script>
+</body>
+
+</html>
