@@ -14,7 +14,7 @@ function renderNavbar(containerId) {
       </ul>
       <div class="navbar-actions">
         <a href="login.html" class="btn-nav btn-login">Iniciar sesión</a>
-        <a href="register.html" class="btn-nav btn-register">Registrarse</a>
+        <a href="registro.html" class="btn-nav btn-register">Registrarse</a>
       </div>
     </nav>
   `;
