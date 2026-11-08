@@ -164,8 +164,8 @@
 }
 
 .auth-banner-box img {
-  max-width: 85%;
-  max-height: 85%;
+  max-width: 120%;
+  max-height: 120%;
   object-fit: contain;
   z-index: 2;
 }

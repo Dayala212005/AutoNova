@@ -11,36 +11,121 @@
 </head>
 
 <body>
-
   <header id="main-navbar"></header>
 
   <main>
-    <section class="hero-section">
-      <div class="hero-content">
-        <p class="hero-tag">AGENCIA DE AUTOMÓVILES</p>
-        <h1 class="hero-title">Encuentra el <span>auto</span> que va contigo</h1>
-        <p class="hero-desc">Explora el catálogo, elige tu vehículo y recibe tu factura en minutos.</p>
-
-        <div class="search-box-container">
-          <label for="search-input">Buscar por tipo o modelo</label>
-          <form id="search-form" class="search-input-group">
-            <input type="text" id="search-input" placeholder="Ej. SUV, sedán, pickup...">
-            <button type="submit" class="btn btn-primary">Buscar</button>
-          </form>
-        </div>
-      </div>
-
-      <div class="hero-banner">
-        <span class="banner-badge">Nuevos ingresos cada semana</span>
-        <div class="banner-shape-red"></div>
-        <div class="banner-shape-teal"></div>
+    <section class="hero-banner-serious">
+      <div class="hero-overlay"></div>
+      <div class="hero-content-serious">
+        <p class="hero-tag-serious">AGENCIA DE AUTOMÓVILES</p>
+        <h1 class="hero-title-serious">Encuentra el <span>auto</span> que va contigo</h1>
+        <p class="hero-desc-serious">Explora el catálogo, elige tu vehículo y recibe tu factura en minutos.</p>
       </div>
     </section>
 
-    <section class="catalog-container" id="catalog">
-      <h2 class="catalog-title">Catálogo destacado</h2>
+    <div class="search-section-wrapper">
+      <div class="search-box-container">
+        <label for="search-input">Buscar por tipo o modelo</label>
+        <form id="search-form" class="search-input-group">
+          <input type="text" id="search-input" placeholder="Ej. SUV, sedán, pickup...">
+          <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+      </div>
+    </div>
 
-      <div id="car-grid" class="car-grid"></div>
+    <section class="catalog-container" id="catalog">
+      <div class="catalog-header-flex">
+        <h2 class="catalog-title">Catálogo destacado</h2>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="carousel-prev" aria-label="Anterior">&#10094;</button>
+          <button class="carousel-btn" id="carousel-next" aria-label="Siguiente">&#10095;</button>
+        </div>
+      </div>
+
+      <div id="car-grid" class="car-carousel-track"></div>
+    </section>
+
+    <section class="institutional-section">
+      <div class="institutional-grid">
+
+        <div class="institutional-content">
+          <h2 class="institutional-title">La mejor experiencia en la compra y venta de vehículos</h2>
+          <p class="institutional-desc">
+            Bienvenido a AutoNova, decenas de compradoras y vendedores de vehículos nos confirman la total satisfacción
+            al hacer sus negocios con nosotros, nuestros servicios están diseñados para brindarte la mejor de las
+            experiencias ya sea que estés comprando o vendiendo tu vehículo.
+          </p>
+          <p class="institutional-quote">
+            Permítenos guiarte en el camino hacia tu próximo auto.
+          </p>
+        </div>
+        <div class="institutional-image-container">
+          <img src="assets/img/Auto.png" alt="AutoNova - Vehículo destacado">
+        </div>
+
+      </div>
+    </section>
+
+    <section class="services-section">
+      <div class="services-grid">
+
+        <div class="service-card">
+          <h3>Adquirir un vehículo</h3>
+          <div class="service-img-container">
+            <img src="assets/img/Adiquirir.png" alt="Adquirir un vehículo">
+          </div>
+          <p class="service-desc">Nuestro stock de vehículos revisados y garantizados en un solo lugar.</p>
+        </div>
+
+        <div class="service-card">
+          <h3>Consignar un auto</h3>
+          <div class="service-img-container">
+            <img src="assets/img/Consignar.png" alt="Consignar un auto">
+          </div>
+          <p class="service-desc">Toda nuestra red de compradores disponibles para potenciar la venta de tu auto y más
+            beneficios.</p>
+        </div>
+
+        <div class="service-card">
+          <h3>Compramos tu auto</h3>
+          <div class="service-img-container">
+            <img src="assets/img/Compramos.png" alt="Compramos tu auto">
+          </div>
+          <p class="service-desc">Te compramos tu vehículo el mismo día, dinero inmediato por tu auto.</p>
+        </div>
+
+      </div>
+    </section>
+    
+    <section class="values-section">
+      <div class="values-header">
+        <h2 class="values-title">Valores</h2>
+        <p class="values-subtitle">Los siguientes valores definen a nuestra empresa:</p>
+      </div>
+
+      <div class="values-grid">
+        
+        <div class="value-card">
+          <div class="value-number">1</div>
+          <h3 class="value-name">Pasión</h3>
+        </div>
+
+        <div class="value-card">
+          <div class="value-number">2</div>
+          <h3 class="value-name">Efectividad</h3>
+        </div>
+
+        <div class="value-card">
+          <div class="value-number">3</div>
+          <h3 class="value-name">Innovación</h3>
+        </div>
+
+        <div class="value-card">
+          <div class="value-number">4</div>
+          <h3 class="value-name">Confianza</h3>
+        </div>
+
+      </div>
     </section>
   </main>
 
@@ -51,7 +136,6 @@
   <script src="./js/catalogo.js"></script>
 
   <script>
-    // Ejecutar las funciones una vez que la página carga
     window.addEventListener('DOMContentLoaded', () => {
       renderNavbar('main-navbar');
       renderFooter('main-footer');
