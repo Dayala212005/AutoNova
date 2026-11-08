@@ -37,7 +37,7 @@ function initLogin() {
     if (selectedRole === 'vendedor') {
       window.location.href = 'vendedor.html';
     } else {
-      window.location.href = 'index.html';
+      window.location.href = 'comprador.html';
     }
   });
 }
