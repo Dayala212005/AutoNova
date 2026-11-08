@@ -5,7 +5,6 @@ function initLogin() {
 
   if (!loginForm) return;
 
-  // Manejar interactividad visual de las tarjetas de rol
   roleCards.forEach(card => {
     card.addEventListener('click', () => {
       roleCards.forEach(c => c.classList.remove('active'));
@@ -14,7 +13,6 @@ function initLogin() {
       const radio = card.querySelector('input[type="radio"]');
       if (radio) {
         radio.checked = true;
-        // Cambiar texto del botón según el rol seleccionado
         if (radio.value === 'vendedor') {
           submitBtn.textContent = 'Ingresar como vendedor';
         } else {
@@ -24,7 +22,6 @@ function initLogin() {
     });
   });
 
-  // Manejar envío del formulario
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -37,10 +34,10 @@ function initLogin() {
       return;
     }
 
-    console.log('Iniciando sesión:', { role: selectedRole, email });
-    alert(`¡Bienvenido de nuevo! Has iniciado sesión como ${selectedRole.toUpperCase()}.`);
-    
-    // Redirección al index o panel correspondiente
-    window.location.href = 'index.html';
+    if (selectedRole === 'vendedor') {
+      window.location.href = 'vendedor.html';
+    } else {
+      window.location.href = 'index.html';
+    }
   });
 }

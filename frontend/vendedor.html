@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Vendedor - AutoNova</title>
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/catalogo.css">
+</head>
+
+<body>
+
+  <header id="main-navbar"></header>
+
+  <main>
+    <section class="vendor-hero">
+      <div class="vendor-hero-overlay"></div>
+      <div class="vendor-hero-content">
+        <p class="vendor-hero-tag">Gestión de Inventario</p>
+        <h1 class="vendor-hero-title">Publica y administra tus vehículos</h1>
+        <p class="vendor-hero-desc">Amplía tu alcance comercial y conecta de forma directa con compradores calificados en minutos.</p>
+      </div>
+    </section>
+
+    <div class="dashboard-container">
+      <div class="dashboard-grid">
+        
+        <div class="dashboard-card">
+          <h2 class="dashboard-card-title">Cargar vehículo</h2>
+          
+          <form id="product-form">
+            <div class="form-group">
+              <label for="prod-name">Nombre del modelo</label>
+              <input type="text" id="prod-name" placeholder="Ej. SUV familiar o Sedán GT" required>
+            </div>
+
+            <div class="form-group">
+              <label for="prod-desc">Descripción y especificaciones</label>
+              <input type="text" id="prod-desc" placeholder="Motor, año, estado, extras..." required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="prod-price">Precio ($)</label>
+                <input type="text" id="prod-price" placeholder="$0.00" required>
+              </div>
+              <div class="form-group">
+                <label for="prod-stock">Stock disponible</label>
+                <input type="number" id="prod-stock" placeholder="0" min="1" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Imagen del vehículo</label>
+              <div class="upload-dropzone">
+                <p>📁 Arrastra una foto aquí o haz clic para elegir un archivo</p>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Guardar producto</button>
+          </form>
+        </div>
+
+        <div class="dashboard-card">
+          <h2 class="dashboard-card-title">Mis vehículos publicados</h2>
+          
+          <div class="products-list">
+       
+            <div class="product-item">
+              <div class="product-item-info">
+                <div class="product-item-thumb" style="background-color: #fee2e2;"></div>
+                <div>
+                  <h4>Sedán compacto</h4>
+                  <span>$18,500 · Stock 4</span>
+                </div>
+              </div>
+              <span class="badge-active">Activo</span>
+            </div>
+
+            <div class="product-item">
+              <div class="product-item-info">
+                <div class="product-item-thumb" style="background-color: #ccfbf1;"></div>
+                <div>
+                  <h4>SUV familiar</h4>
+                  <span>$26,900 · Stock 2</span>
+                </div>
+              </div>
+              <span class="badge-active">Activo</span>
+            </div>
+
+            <div class="product-item">
+              <div class="product-item-info">
+                <div class="product-item-thumb" style="background-color: #e0e7ff;"></div>
+                <div>
+                  <h4>Pickup 4x4</h4>
+                  <span>$31,200 · Stock 3</span>
+                </div>
+              </div>
+              <span class="badge-active">Activo</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <div id="main-footer"></div>
+
+  <script src="./components/navbar.js"></script>
+  <script src="./components/footer.js"></script>
+  <script src="./js/vendedor.js"></script> 
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('main-navbar');
+      renderFooter('main-footer');
+      initDashboard(); 
+    });
+  </script>
+</body>
+
+</html>
