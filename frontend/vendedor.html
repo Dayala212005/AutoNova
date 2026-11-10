@@ -20,16 +20,17 @@
       <div class="vendor-hero-content">
         <p class="vendor-hero-tag">Gestión de Inventario</p>
         <h1 class="vendor-hero-title">Publica y administra tus vehículos</h1>
-        <p class="vendor-hero-desc">Amplía tu alcance comercial y conecta de forma directa con compradores calificados en minutos.</p>
+        <p class="vendor-hero-desc">Amplía tu alcance comercial y conecta de forma directa con compradores calificados
+          en minutos.</p>
       </div>
     </section>
 
     <div class="dashboard-container">
       <div class="dashboard-grid">
-        
+
         <div class="dashboard-card">
           <h2 class="dashboard-card-title">Cargar vehículo</h2>
-          
+
           <form id="product-form">
             <div class="form-group">
               <label for="prod-name">Nombre del modelo</label>
@@ -44,7 +45,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="prod-price">Precio ($)</label>
-                <input type="text" id="prod-price" placeholder="$0.00" required>
+                <input type="number" id="prod-price" placeholder="0.00" min="0" step="0.01" required>
               </div>
               <div class="form-group">
                 <label for="prod-stock">Stock disponible</label>
@@ -54,9 +55,10 @@
 
             <div class="form-group">
               <label>Imagen del vehículo</label>
-              <div class="upload-dropzone">
-                <p>📁 Arrastra una foto aquí o haz clic para elegir un archivo</p>
-              </div>
+              <label class="upload-dropzone" for="prod-image" style="cursor:pointer; display:block;">
+                <p id="upload-text">📁 Arrastra una foto aquí o haz clic para elegir un archivo</p>
+                <input type="file" id="prod-image" accept="image/*" style="display:none;">
+              </label>
             </div>
 
             <button type="submit" class="btn-submit">Guardar producto</button>
@@ -65,9 +67,9 @@
 
         <div class="dashboard-card">
           <h2 class="dashboard-card-title">Mis vehículos publicados</h2>
-          
+
           <div class="products-list">
-       
+
             <div class="product-item">
               <div class="product-item-info">
                 <div class="product-item-thumb" style="background-color: #fee2e2;"></div>
@@ -110,14 +112,15 @@
 
   <div id="main-footer"></div>
 
+  <script src="./js/api.js"></script>
   <script src="./components/navbar.js"></script>
   <script src="./components/footer.js"></script>
-  <script src="./js/vendedor.js"></script> 
+  <script src="./js/vendedor.js"></script>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       renderNavbar('main-navbar');
       renderFooter('main-footer');
-      initDashboard(); 
+      initDashboard();
     });
   </script>
 </body>
