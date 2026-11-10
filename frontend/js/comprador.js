@@ -118,9 +118,16 @@ function initComprador() {
       alert(`¡Factura generada con éxito! Total: ${formatearPrecio(factura.total)}`);
 
       cart = [];
-      await cargarCatalogo(); // vuelve a cargar: el stock ya bajó en el servidor
+      await cargarCatalogo();
       renderInvoice();
     } catch (err) {
       alert(err.message || 'No se pudo generar la factura.');
     } finally {
       generateBtn.disabled = false;
+      generateBtn.textContent = textoOriginal;
+    }
+  });
+
+  cargarCatalogo();
+  renderInvoice();
+}
