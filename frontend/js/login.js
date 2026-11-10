@@ -26,7 +26,6 @@ function initLogin() {
       const radio = card.querySelector('input[type="radio"]');
       if (radio) {
         radio.checked = true;
-        // Cambiar texto del botón según el rol seleccionado
         if (radio.value === 'vendedor') {
           submitBtn.textContent = 'Ingresar como vendedor';
         } else {

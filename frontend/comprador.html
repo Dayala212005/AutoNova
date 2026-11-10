@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Comprador - AutoNova</title>
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/catalogo.css">
+</head>
+
+<body>
+
+  <header id="main-navbar"></header>
+
+  <main>
+    <section class="hero-banner-serious buyer-banner">
+      <div class="hero-overlay"></div>
+      <div class="hero-content-serious">
+        <p class="hero-tag-serious">Catálogo Exclusivo</p>
+        <h1 class="hero-title-serious">Encuentra tu próximo vehículo con total respaldo</h1>
+        <p class="hero-desc-serious">Selecciona las mejores opciones de nuestro inventario y genera tu cotización en tiempo real.</p>
+      </div>
+    </section>
+
+    <div class="buyer-layout-grid" style="margin-top: 3rem;">
+    
+      <div>
+        <h2 class="catalog-title" style="margin-bottom: 1.5rem;">Elige tus vehículos</h2>
+        
+        <div class="buyer-cars-grid" id="cars-catalog">
+        </div>
+      </div>
+
+      <div>
+        <div class="dashboard-card invoice-card">
+          <div class="invoice-header">
+            <div>
+              <h3 class="invoice-title">Factura</h3>
+              <p class="invoice-client">Cliente: <strong>Emily Orellana</strong> · Fecha: <span id="current-date">--/--/----</span></p>
+            </div>
+            <span class="invoice-num">N.° 00042</span>
+          </div>
+
+          <table class="invoice-table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cant.</th>
+                <th>Precio</th>
+              </tr>
+            </thead>
+            <tbody id="invoice-items">
+              <tr>
+                <td colspan="3" style="text-align: center; color: #94a3b8; padding: 1.5rem 0;">No hay vehículos seleccionados</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="invoice-totals">
+            <div class="invoice-total-row">
+              <span>Subtotal</span>
+              <span id="subtotal-amount">$0.00</span>
+            </div>
+            <div class="invoice-total-row">
+              <span>IVA 13%</span>
+              <span id="iva-amount">$0.00</span>
+            </div>
+            <div class="invoice-total-row final">
+              <span>Total</span>
+              <span id="total-amount">$0.00</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn-submit" id="generate-invoice-btn">Generar factura</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="main-footer"></div>
+
+  <script src="./components/navbar.js"></script>
+  <script src="./components/footer.js"></script>
+  <script src="./js/comprador.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('main-navbar');
+      renderFooter('main-footer');
+      initComprador();
+    });
+  </script>
+</body>
+
+</html>
