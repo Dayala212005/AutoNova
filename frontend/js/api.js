@@ -20,7 +20,7 @@ function obtenerUsuario() {
 function cerrarSesion() {
   localStorage.removeItem('token');
   localStorage.removeItem('usuario');
-  window.location.href = 'login.html';
+  window.location.href = 'index.html';
 }
 
 async function api(ruta, { method = 'GET', body, formData } = {}) {
@@ -30,7 +30,7 @@ async function api(ruta, { method = 'GET', body, formData } = {}) {
 
   let cuerpo;
   if (formData) {
-    cuerpo = formData; // el navegador pone el Content-Type correcto solo
+    cuerpo = formData; 
   } else if (body !== undefined) {
     headers['Content-Type'] = 'application/json';
     cuerpo = JSON.stringify(body);
@@ -41,14 +41,11 @@ async function api(ruta, { method = 'GET', body, formData } = {}) {
 
   const datos = await resp.json().catch(() => ({}));
   if (!resp.ok) {
-    // token vencido o inválido: volver al login
     if (resp.status === 401 && token && !ruta.startsWith('/auth/login')) cerrarSesion();
     throw new Error(datos.error || `Error ${resp.status}`);
   }
   return datos;
 }
-
-// Protege una página: si no hay sesión o el rol no sirve, manda al login
 function exigirRol(...roles) {
   const u = obtenerUsuario();
   if (!obtenerToken() || !u || !roles.includes(u.rol)) {
@@ -56,4 +53,41 @@ function exigirRol(...roles) {
     return false;
   }
   return true;
+}
+
+
+function obtenerCarrito() {
+  try {
+    return JSON.parse(localStorage.getItem('carrito')) || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function guardarCarrito(carrito) {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+function agregarAlCarrito(producto, cantidad = 1) {
+  const carrito = obtenerCarrito();
+  const existente = carrito.find(item => item.id === producto.id);
+
+  if (existente) {
+    existente.cantidad = Math.min(existente.cantidad + cantidad, producto.stock);
+  } else {
+    carrito.push({ ...producto, cantidad: Math.min(cantidad, producto.stock) });
+  }
+
+  guardarCarrito(carrito);
+  return carrito;
+}
+
+function quitarDelCarrito(id) {
+  const carrito = obtenerCarrito().filter(item => item.id !== id);
+  guardarCarrito(carrito);
+  return carrito;
+}
+
+function vaciarCarrito() {
+  localStorage.removeItem('carrito');
 }

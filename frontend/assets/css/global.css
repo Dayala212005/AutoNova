@@ -1,14 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap');
+
 :root {
-  --primary-blue: #3b62f6;
-  --bg-light: #edf2fe;
-  --text-dark: #1e293b;
+  --primary-blue: #122850;
+  --bg-light: #f4f5f7;
+  --text-dark: #0d1526;
   --text-muted: #64748b;
-  --yellow-accent: #facc15;
-  --yellow-hover: #eab308;
+  --yellow-accent: #c8a248;
+  --yellow-hover: #a9842a;
   --border-color: #e2e8f0;
-  --radius-lg: 24px;
-  --radius-md: 12px;
-  --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Poppins', sans-serif;
 }
 
 * {
@@ -28,4 +29,15 @@ body {
 
 main {
   flex: 1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }

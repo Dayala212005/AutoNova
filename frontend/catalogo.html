@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo completo - AutoNova</title>
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/catalogo.css">
+</head>
+
+<body>
+  <header id="main-navbar"></header>
+
+  <main>
+    <div class="search-section-wrapper">
+      <div class="search-box-container">
+        <label for="search-input">Buscar por tipo o modelo</label>
+        <form id="search-form" class="search-input-group">
+          <input type="text" id="search-input" placeholder="Ej. SUV, sedán, pickup...">
+          <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+      </div>
+    </div>
+
+    <section class="catalog-container" id="catalog">
+      <div class="catalog-header-flex">
+        <h2 class="catalog-title">Catálogo completo</h2>
+      </div>
+      <div id="car-grid-full" class="car-carousel-track is-grid"></div>
+    </section>
+  </main>
+
+  <div id="main-footer"></div>
+
+  <script src="./js/api.js"></script>
+  <script src="./components/navbar.js"></script>
+  <script src="./components/footer.js"></script>
+  <script src="./js/catalogo-completo.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('main-navbar');
+      renderFooter('main-footer');
+      initCatalogoCompleto();
+    });
+  </script>
+</body>
+
+</html>

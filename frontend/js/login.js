@@ -2,45 +2,59 @@ function initLogin() {
   const loginForm = document.getElementById('login-form');
   const roleCards = document.querySelectorAll('.role-card');
   const submitBtn = document.getElementById('submit-btn');
+  const sublink = document.querySelector('.auth-footer-sublink');
 
   if (!loginForm) return;
 
-  // true si entraron por el enlace "¿Eres administrador? Entra aquí"
   let modoAdmin = window.location.hash === '#admin';
 
-  function actualizarBotonAdmin() {
-    if (modoAdmin) {
-      submitBtn.textContent = 'Ingresar como administrador';
-      roleCards.forEach(c => c.classList.remove('active'));
+  function textoBotonNormal() {
+    const seleccionado = document.querySelector('input[name="role"]:checked');
+    return seleccionado && seleccionado.value === 'vendedor'
+      ? 'Ingresar como vendedor'
+      : 'Ingresar como comprador';
+  }
+
+  function actualizarModo() {
+    roleCards.forEach(card => {
+      const radio = card.querySelector('input[type="radio"]');
+      card.classList.toggle('disabled', modoAdmin);
+      if (radio) radio.disabled = modoAdmin;
+      card.classList.toggle('active', !modoAdmin && !!radio && radio.checked);
+    });
+
+    submitBtn.textContent = modoAdmin ? 'Ingresar como administrador' : textoBotonNormal();
+
+    if (sublink) {
+      sublink.innerHTML = modoAdmin
+        ? '¿No eres administrador? <a href="#">Volver</a>'
+        : '¿Eres administrador? <a href="#admin">Entra aquí</a>';
     }
   }
-  actualizarBotonAdmin();
+  actualizarModo();
 
-  // Manejar interactividad visual de las tarjetas de rol
   roleCards.forEach(card => {
     card.addEventListener('click', () => {
-      modoAdmin = false; // si elige una tarjeta, ya no es modo admin
+      if (modoAdmin) return;
+
       roleCards.forEach(c => c.classList.remove('active'));
       card.classList.add('active');
 
       const radio = card.querySelector('input[type="radio"]');
       if (radio) {
         radio.checked = true;
-        if (radio.value === 'vendedor') {
-          submitBtn.textContent = 'Ingresar como vendedor';
-        } else {
-          submitBtn.textContent = 'Ingresar como comprador';
-        }
+        submitBtn.textContent = radio.value === 'vendedor'
+          ? 'Ingresar como vendedor'
+          : 'Ingresar como comprador';
       }
     });
   });
 
   window.addEventListener('hashchange', () => {
     modoAdmin = window.location.hash === '#admin';
-    actualizarBotonAdmin();
+    actualizarModo();
   });
 
-  // Manejar envío del formulario
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 

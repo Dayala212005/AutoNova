@@ -49,14 +49,14 @@
               </div>
               <div class="form-group">
                 <label for="prod-stock">Stock disponible</label>
-                <input type="number" id="prod-stock" placeholder="0" min="1" required>
+                <input type="number" id="prod-stock" placeholder="0" min="0" required>
               </div>
             </div>
 
             <div class="form-group">
               <label>Imagen del vehículo</label>
               <label class="upload-dropzone" for="prod-image" style="cursor:pointer; display:block;">
-                <p id="upload-text">📁 Arrastra una foto aquí o haz clic para elegir un archivo</p>
+                <p id="upload-text">Arrastra una foto aquí o haz clic para elegir un archivo</p>
                 <input type="file" id="prod-image" accept="image/*" style="display:none;">
               </label>
             </div>
@@ -68,42 +68,7 @@
         <div class="dashboard-card">
           <h2 class="dashboard-card-title">Mis vehículos publicados</h2>
 
-          <div class="products-list">
-
-            <div class="product-item">
-              <div class="product-item-info">
-                <div class="product-item-thumb" style="background-color: #fee2e2;"></div>
-                <div>
-                  <h4>Sedán compacto</h4>
-                  <span>$18,500 · Stock 4</span>
-                </div>
-              </div>
-              <span class="badge-active">Activo</span>
-            </div>
-
-            <div class="product-item">
-              <div class="product-item-info">
-                <div class="product-item-thumb" style="background-color: #ccfbf1;"></div>
-                <div>
-                  <h4>SUV familiar</h4>
-                  <span>$26,900 · Stock 2</span>
-                </div>
-              </div>
-              <span class="badge-active">Activo</span>
-            </div>
-
-            <div class="product-item">
-              <div class="product-item-info">
-                <div class="product-item-thumb" style="background-color: #e0e7ff;"></div>
-                <div>
-                  <h4>Pickup 4x4</h4>
-                  <span>$31,200 · Stock 3</span>
-                </div>
-              </div>
-              <span class="badge-active">Activo</span>
-            </div>
-
-          </div>
+          <div class="products-list"></div>
         </div>
 
       </div>

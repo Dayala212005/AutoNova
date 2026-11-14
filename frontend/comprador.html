@@ -16,31 +16,36 @@
 
   <main>
     <section class="hero-banner-serious buyer-banner">
-      <div class="hero-overlay"></div>
       <div class="hero-content-serious">
         <p class="hero-tag-serious">Catálogo Exclusivo</p>
         <h1 class="hero-title-serious">Encuentra tu próximo vehículo con total respaldo</h1>
-        <p class="hero-desc-serious">Selecciona las mejores opciones de nuestro inventario y genera tu cotización en tiempo real.</p>
+        <p class="hero-desc-serious">Selecciona las mejores opciones de nuestro inventario y genera tu cotización en
+          tiempo real.</p>
       </div>
     </section>
 
-    <div class="buyer-layout-grid" style="margin-top: 3rem;">
-    
-      <div>
-        <h2 class="catalog-title" style="margin-bottom: 1.5rem;">Elige tus vehículos</h2>
-        
-        <div class="buyer-cars-grid" id="cars-catalog">
-        </div>
+    <div class="dashboard-container">
+
+      <div style="display:flex; gap:1rem; margin: 2rem 0 1.5rem;">
+        <button id="tab-catalogo-btn" class="tab-btn active">Catálogo</button>
+        <button id="tab-factura-btn" class="tab-btn">Factura</button>
+        <a href="facturas.html" class="tab-btn">Mis facturas</a>
       </div>
 
-      <div>
-        <div class="dashboard-card invoice-card">
+      <div id="tab-catalogo">
+        <h2 class="catalog-title" style="margin-bottom: 1.5rem;">Elige tus vehículos</h2>
+        <div class="buyer-cars-grid" id="cars-catalog"></div>
+      </div>
+
+      <div id="tab-factura" style="display:none;">
+        <div class="dashboard-card invoice-card" style="max-width: 600px;">
           <div class="invoice-header">
             <div>
               <h3 class="invoice-title">Factura</h3>
-              <p class="invoice-client">Cliente: <strong>Emily Orellana</strong> · Fecha: <span id="current-date">--/--/----</span></p>
+              <p class="invoice-client">Cliente: <strong>Usuario</strong> · Fecha: <span
+                  id="current-date">--/--/----</span></p>
             </div>
-            <span class="invoice-num">N.° 00042</span>
+            <span class="invoice-num">N.° --------</span>
           </div>
 
           <table class="invoice-table">
@@ -49,11 +54,13 @@
                 <th>Producto</th>
                 <th>Cant.</th>
                 <th>Precio</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="invoice-items">
               <tr>
-                <td colspan="3" style="text-align: center; color: #94a3b8; padding: 1.5rem 0;">No hay vehículos seleccionados</td>
+                <td colspan="4" style="text-align: center; color: #94a3b8; padding: 1.5rem 0;">No hay vehículos
+                  seleccionados</td>
               </tr>
             </tbody>
           </table>
