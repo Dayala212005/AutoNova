@@ -6,14 +6,12 @@ const { autenticar, requiereRol } = require('../middleware/auth');
 const IVA = 0.13;
 const redondear = (n) => Math.round(n * 100) / 100;
 
-// Generar factura (comprador). Body: { items: [{ producto_id, cantidad }] }
 router.post('/', autenticar, requiereRol('comprador'), wrap(async (req, res) => {
   const { items } = req.body;
   if (!Array.isArray(items) || !items.length) {
     return res.status(400).json({ error: 'Debes enviar al menos un producto' });
   }
 
-  // Juntar repetidos y validar
   const pedido = new Map();
   for (const it of items) {
     const pid = Number(it.producto_id);
@@ -76,14 +74,13 @@ router.post('/', autenticar, requiereRol('comprador'), wrap(async (req, res) => 
       subtotal, iva, total,
     });
   } catch (e) {
-    await client.query('ROLLBACK').catch(() => {});
+    await client.query('ROLLBACK').catch(() => { });
     throw e;
   } finally {
     client.release();
   }
 }));
 
-// Mis facturas (solo las del comprador logueado)
 router.get('/', autenticar, requiereRol('comprador'), wrap(async (req, res) => {
   const r = await pool.query(
     'SELECT id, total, creada_en FROM facturas WHERE cliente_id = $1 ORDER BY creada_en DESC',

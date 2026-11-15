@@ -6,7 +6,6 @@ const { autenticar, requiereRol } = require('../middleware/auth');
 
 const COLS = 'id, nombre, email, rol, creado_en';
 
-// Todo este módulo es solo para el admin
 router.use(autenticar, requiereRol('admin'));
 
 router.get('/', wrap(async (req, res) => {
@@ -21,7 +20,6 @@ router.get('/:id', wrap(async (req, res) => {
   res.json(r.rows[0]);
 }));
 
-// Crear usuario con cualquier rol (así se crean los vendedores)
 router.post('/', wrap(async (req, res) => {
   const { nombre, email, password, rol } = req.body;
   if (!nombre || !email || !password || !ROLES.includes(rol)) {

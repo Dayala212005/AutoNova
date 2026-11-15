@@ -4,7 +4,6 @@ const pool = require('../db');
 const { wrap } = require('../utils');
 const { firmarToken, autenticar } = require('../middleware/auth');
 
-// Registro público: SIEMPRE crea compradores
 router.post('/register', wrap(async (req, res) => {
   const { nombre, email, password } = req.body;
   if (!nombre || !email || !password) {
@@ -25,7 +24,6 @@ router.post('/register', wrap(async (req, res) => {
   }
 }));
 
-// Login: "rol" es opcional (el selector Comprador/Vendedor del mockup)
 router.post('/login', wrap(async (req, res) => {
   const { email, password, rol } = req.body;
   if (!email || !password) {

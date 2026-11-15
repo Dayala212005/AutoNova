@@ -6,7 +6,6 @@ const DIR = process.env.UPLOAD_DIR || '/app/uploads';
 const storage = multer.diskStorage({
   destination: DIR,
   filename: (req, file, cb) => {
-    // Se conserva el nombre y la extensión originales del archivo
     const limpio = path.basename(file.originalname).replace(/[^a-zA-Z0-9._-]/g, '_');
     cb(null, `${Date.now()}-${limpio}`);
   },

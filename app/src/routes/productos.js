@@ -6,7 +6,6 @@ const { autenticar, requiereRol } = require('../middleware/auth');
 
 const COLS = 'id, nombre, descripcion, precio, stock, imagen_url, vendedor_id, creado_en';
 
-// Catálogo público, con búsqueda opcional ?q=
 router.get('/', wrap(async (req, res) => {
   const q = req.query.q ? `%${req.query.q}%` : null;
   const r = await pool.query(
@@ -18,7 +17,6 @@ router.get('/', wrap(async (req, res) => {
   res.json(r.rows);
 }));
 
-// Productos del vendedor logueado (va ANTES de /:id)
 router.get('/mios', autenticar, requiereRol('vendedor', 'admin'), wrap(async (req, res) => {
   const r = await pool.query(
     `SELECT ${COLS} FROM productos WHERE vendedor_id = $1 ORDER BY id DESC`,
@@ -34,7 +32,6 @@ router.get('/:id', wrap(async (req, res) => {
   res.json(r.rows[0]);
 }));
 
-// Crear producto (multipart/form-data, campo de archivo: "imagen")
 router.post('/', autenticar, requiereRol('vendedor', 'admin'), upload.single('imagen'),
   wrap(async (req, res) => {
     const { nombre, descripcion, precio, stock } = req.body;
@@ -54,7 +51,6 @@ router.post('/', autenticar, requiereRol('vendedor', 'admin'), upload.single('im
   })
 );
 
-// Editar: el dueño (vendedor) o el admin
 router.put('/:id', autenticar, requiereRol('vendedor', 'admin'), upload.single('imagen'),
   wrap(async (req, res) => {
     if (!esEnteroPositivo(req.params.id)) return res.status(400).json({ error: 'ID inválido' });
