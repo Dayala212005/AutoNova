@@ -61,6 +61,9 @@ END $$;
 -- 2. PRODUCTOS
 -- El stock representa las existencias
 -- disponibles despues de las ventas de prueba.
+-- imagen_url apunta a imagenes del repositorio
+-- (frontend/assets/img/), no al volumen de uploads,
+-- para que se vean igual en cualquier maquina.
 -- ==========================================
 
 INSERT INTO productos
@@ -71,18 +74,18 @@ SELECT
     p.descripcion,
     p.precio,
     p.stock,
-    NULL,
+    p.imagen_url,
     v.id
 
 FROM usuarios v
 
 CROSS JOIN (
     VALUES
-    ('Sedan compacto', 'Automovil compacto para ciudad', 18500.00::NUMERIC, 3),
-    ('SUV familiar', 'Vehiculo familiar de amplio espacio', 26900.00::NUMERIC, 2),
-    ('Pickup 4x4', 'Camioneta de trabajo y aventura', 31200.00::NUMERIC, 2),
-    ('Hatchback urbano', 'Automovil economico para ciudad', 14900.00::NUMERIC, 5)
-) AS p(nombre, descripcion, precio, stock)
+    ('Sedan compacto', 'Automovil compacto para ciudad', 18500.00::NUMERIC, 3, '/assets/img/sedancompacto.jpg'),
+    ('SUV familiar', 'Vehiculo familiar de amplio espacio', 26900.00::NUMERIC, 2, '/assets/img/suvfamiliar.jpg'),
+    ('Pickup 4x4', 'Camioneta de trabajo y aventura', 31200.00::NUMERIC, 2, '/assets/img/pickup4x4.jpg'),
+    ('Hatchback urbano', 'Automovil economico para ciudad', 14900.00::NUMERIC, 5, '/assets/img/hatchbackurbano.jpg')
+) AS p(nombre, descripcion, precio, stock, imagen_url)
 
 WHERE v.email = 'vendedor1@autonova.test'
 AND v.rol = 'vendedor'
