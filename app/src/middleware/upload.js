@@ -11,11 +11,4 @@ const storage = multer.diskStorage({
   },
 });
 
-function fileFilter(req, file, cb) {
-  if (file.mimetype && file.mimetype.startsWith('image/')) return cb(null, true);
-  const err = new Error('Solo se permiten imágenes');
-  err.status = 400;
-  cb(err);
-}
-
-module.exports = multer({ storage, fileFilter, limits: { fileSize: 5 * 1024 * 1024 } });
+module.exports = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } });
