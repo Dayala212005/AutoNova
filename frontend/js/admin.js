@@ -1,3 +1,16 @@
+// --- Seguridad XSS -------------------------------------------------------
+// Convierte texto de usuario en texto inofensivo antes de meterlo en innerHTML.
+// El & va primero para no volver a escapar los & que generan las otras lineas.
+function escapeHTML(valor) {
+  return String(valor ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+// -------------------------------------------------------------------------
+
 function initAdmin() {
   if (!exigirRol('admin')) return;
 
@@ -28,11 +41,11 @@ function initAdmin() {
         <div class="product-item">
           <div class="product-item-info">
             <div>
-              <h4>${u.nombre}</h4>
-              <span>${u.email} · ${u.rol}</span>
+              <h4>${escapeHTML(u.nombre)}</h4>
+              <span>${escapeHTML(u.email)} · ${escapeHTML(u.rol)}</span>
             </div>
           </div>
-          <button class="btn btn-outline" onclick="eliminarUsuario(${u.id})">Eliminar</button>
+          <button class="btn btn-outline" onclick="eliminarUsuario(${Number(u.id)})">Eliminar</button>
         </div>
       `).join('');
     } catch (err) {
@@ -84,13 +97,13 @@ function initAdmin() {
       <div class="product-item">
         <div class="product-item-info">
           <div>
-            <h4>${p.nombre}</h4>
-            <span>${formatearPrecio(p.precio)} · Stock ${p.stock}</span>
+            <h4>${escapeHTML(p.nombre)}</h4>
+            <span>${formatearPrecio(p.precio)} · Stock ${escapeHTML(p.stock)}</span>
           </div>
         </div>
         <div class="product-item-actions">
-          <button type="button" class="btn-mini" data-action="editar" data-id="${p.id}">Editar</button>
-          <button type="button" class="btn-mini danger" data-action="eliminar" data-id="${p.id}">Eliminar</button>
+          <button type="button" class="btn-mini" data-action="editar" data-id="${escapeHTML(p.id)}">Editar</button>
+          <button type="button" class="btn-mini danger" data-action="eliminar" data-id="${escapeHTML(p.id)}">Eliminar</button>
         </div>
       </div>
     `).join('');

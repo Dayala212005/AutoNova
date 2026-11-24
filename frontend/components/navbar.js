@@ -1,3 +1,16 @@
+// --- Seguridad XSS -------------------------------------------------------
+// Convierte texto de usuario en texto inofensivo antes de meterlo en innerHTML.
+// El & va primero para no volver a escapar los & que generan las otras lineas.
+function escapeHTML(valor) {
+  return String(valor ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+// -------------------------------------------------------------------------
+
 function renderNavbar(containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -21,7 +34,7 @@ function renderNavbar(containerId) {
   if (usuario) {
     enlacesMenu = `<li><a href="${paneles[usuario.rol] || 'index.html'}">${nombresPanel[usuario.rol] || 'Mi panel'}</a></li>`;
     acciones = `
-      <span class="btn-nav btn-register" style="cursor:default; border-color: rgba(255,255,255,0.2);">Hola, ${usuario.nombre}</span>
+      <span class="btn-nav btn-register" style="cursor:default; border-color: rgba(255,255,255,0.2);">Hola, ${escapeHTML(usuario.nombre)}</span>
       <a href="#" class="btn-nav btn-login" id="nav-logout">Cerrar sesión</a>
     `;
   } else {

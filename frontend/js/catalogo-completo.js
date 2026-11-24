@@ -1,3 +1,25 @@
+// --- Seguridad XSS -------------------------------------------------------
+// Convierte texto de usuario en texto inofensivo antes de meterlo en innerHTML.
+// El & va primero para no volver a escapar los & que generan las otras lineas.
+function escapeHTML(valor) {
+  return String(valor ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Para usar una URL dentro de url('...') en CSS. escapeHTML no sirve aqui porque
+// el navegador decodifica &#39; de vuelta a ' antes de interpretar el CSS.
+// Solo acepta rutas que empiezan con / o http(s):// y codifica los caracteres peligrosos.
+function urlSegura(url) {
+  const u = String(url ?? '').trim();
+  if (!/^(https?:\/\/|\/)/i.test(u) || u.startsWith('//')) return '';
+  return u.replace(/['"()\\\s<>]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+}
+// -------------------------------------------------------------------------
+
 function initCatalogoCompleto() {
   const trackContainer = document.getElementById('car-grid-full');
   const searchForm = document.getElementById('search-form');
@@ -27,15 +49,15 @@ function initCatalogoCompleto() {
       const sinStock = car.stock <= 0;
       return `
         <div class="car-card">
-          <div class="car-card-img" ${car.imagen_url ? `style="background-image:url('${car.imagen_url}');background-size:cover;background-position:center;"` : ''}></div>
+          <div class="car-card-img" ${urlSegura(car.imagen_url) ? `style="background-image:url('${urlSegura(car.imagen_url)}');background-size:cover;background-position:center;"` : ''}></div>
           <div class="car-info">
-            <h3>${car.nombre}</h3>
+            <h3>${escapeHTML(car.nombre)}</h3>
           </div>
           <div class="car-footer">
             <span class="car-price">${formatearPrecio(car.precio)}</span>
             ${sinStock
           ? `<button class="btn btn-outline" disabled style="background:#e2e8f0; color:#94a3b8; cursor:not-allowed; box-shadow:none; outline:none; border:none;">Agotado</button>`
-          : `<a href="producto.html?id=${car.id}" class="btn btn-outline">Ver detalle</a>`}
+          : `<a href="producto.html?id=${escapeHTML(encodeURIComponent(car.id))}" class="btn btn-outline">Ver detalle</a>`}
           </div>
         </div>
       `;

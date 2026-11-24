@@ -1,3 +1,16 @@
+// --- Seguridad XSS -------------------------------------------------------
+// Convierte texto de usuario en texto inofensivo antes de meterlo en innerHTML.
+// El & va primero para no volver a escapar los & que generan las otras lineas.
+function escapeHTML(valor) {
+  return String(valor ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+// -------------------------------------------------------------------------
+
 function initFacturas() {
     if (!exigirRol('comprador')) return;
 
@@ -30,10 +43,10 @@ function initFacturas() {
           <tbody>
             ${facturas.map(f => `
               <tr>
-                <td class="fx-id">${f.id.slice(0, 8)}</td>
+                <td class="fx-id">${escapeHTML(String(f.id).slice(0, 8))}</td>
                 <td>${new Date(f.creada_en).toLocaleString('es-ES')}</td>
                 <td><strong>${formatearPrecio(f.total)}</strong></td>
-                <td><a href="factura.html?id=${f.id}" class="btn btn-outline">Ver detalle</a></td>
+                <td><a href="factura.html?id=${escapeHTML(encodeURIComponent(f.id))}" class="btn btn-outline">Ver detalle</a></td>
               </tr>
             `).join('')}
           </tbody>

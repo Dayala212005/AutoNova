@@ -1,3 +1,25 @@
+// --- Seguridad XSS -------------------------------------------------------
+// Convierte texto de usuario en texto inofensivo antes de meterlo en innerHTML.
+// El & va primero para no volver a escapar los & que generan las otras lineas.
+function escapeHTML(valor) {
+  return String(valor ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Para usar una URL dentro de url('...') en CSS. escapeHTML no sirve aqui porque
+// el navegador decodifica &#39; de vuelta a ' antes de interpretar el CSS.
+// Solo acepta rutas que empiezan con / o http(s):// y codifica los caracteres peligrosos.
+function urlSegura(url) {
+  const u = String(url ?? '').trim();
+  if (!/^(https?:\/\/|\/)/i.test(u) || u.startsWith('//')) return '';
+  return u.replace(/['"()\\\s<>]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+}
+// -------------------------------------------------------------------------
+
 function initProducto() {
   const contenedor = document.getElementById('producto-detalle');
   if (!contenedor) return;
@@ -17,7 +39,7 @@ function initProducto() {
   async function cargarProducto() {
     contenedor.innerHTML = `<p style="text-align:center; padding:3rem 0;">Cargando...</p>`;
     try {
-      const car = await api(`/productos/${id}`);
+      const car = await api(`/productos/${encodeURIComponent(id)}`);
       renderProducto(car);
     } catch (err) {
       contenedor.innerHTML = `<p style="text-align:center; color:#ef4444; padding:3rem 0;">No se encontró el vehículo.</p>`;
@@ -40,8 +62,8 @@ function initProducto() {
     if (sinStock) { claseBadge = 'pd-badge-out'; textoBadge = 'Agotado'; }
     else if (car.stock <= 3) { claseBadge = 'pd-badge-low'; textoBadge = 'Pocas unidades'; }
 
-    const estiloImagen = car.imagen_url
-      ? `background-image:url('${car.imagen_url}');`
+    const estiloImagen = urlSegura(car.imagen_url)
+      ? `background-image:url('${urlSegura(car.imagen_url)}');`
       : 'background-color:#eef0f4;';
 
     const botonDeshabilitado = sinStock || (usuario && !esComprador);
@@ -57,9 +79,9 @@ function initProducto() {
 
           <div class="pd-info">
             <span class="pd-badge ${claseBadge}">${textoBadge}</span>
-            <h1 class="pd-title">${car.nombre}</h1>
+            <h1 class="pd-title">${escapeHTML(car.nombre)}</h1>
             <p class="pd-price">${formatearPrecio(car.precio)}</p>
-            <p class="pd-desc">${car.descripcion || 'Sin descripción disponible.'}</p>
+            <p class="pd-desc">${escapeHTML(car.descripcion || 'Sin descripción disponible.')}</p>
 
             <div class="pd-meta">
               <div class="pd-meta-item">
@@ -68,7 +90,7 @@ function initProducto() {
               </div>
               <div class="pd-meta-item">
                 <span class="pd-meta-label">Unidades</span>
-                <span class="pd-meta-value">${sinStock ? '0' : car.stock}</span>
+                <span class="pd-meta-value">${sinStock ? '0' : escapeHTML(car.stock)}</span>
               </div>
             </div>
 
@@ -78,7 +100,7 @@ function initProducto() {
                 <div class="pd-qty-row">
                   <div class="pd-stepper">
                     <button type="button" id="btn-menos" aria-label="Menos">&minus;</button>
-                    <input type="number" id="cantidad-input" value="1" min="1" max="${car.stock}">
+                    <input type="number" id="cantidad-input" value="1" min="1" max="${escapeHTML(car.stock)}">
                     <button type="button" id="btn-mas" aria-label="Más">+</button>
                   </div>
                   <div class="pd-total">

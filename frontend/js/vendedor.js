@@ -1,3 +1,25 @@
+// --- Seguridad XSS -------------------------------------------------------
+// Convierte texto de usuario en texto inofensivo antes de meterlo en innerHTML.
+// El & va primero para no volver a escapar los & que generan las otras lineas.
+function escapeHTML(valor) {
+  return String(valor ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// Para usar una URL dentro de url('...') en CSS. escapeHTML no sirve aqui porque
+// el navegador decodifica &#39; de vuelta a ' antes de interpretar el CSS.
+// Solo acepta rutas que empiezan con / o http(s):// y codifica los caracteres peligrosos.
+function urlSegura(url) {
+  const u = String(url ?? '').trim();
+  if (!/^(https?:\/\/|\/)/i.test(u) || u.startsWith('//')) return '';
+  return u.replace(/['"()\\\s<>]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+}
+// -------------------------------------------------------------------------
+
 function initDashboard() {
   if (!exigirRol('vendedor', 'admin')) return;
 
@@ -43,16 +65,16 @@ function initDashboard() {
     productsList.innerHTML = productos.map(prod => `
       <div class="product-item">
         <div class="product-item-info">
-          <div class="product-item-thumb" style="background-color: ${colorPara(prod.id)};${prod.imagen_url ? `background-image:url('${prod.imagen_url}');background-size:cover;background-position:center;` : ''}"></div>
+          <div class="product-item-thumb" style="background-color: ${colorPara(prod.id)};${urlSegura(prod.imagen_url) ? `background-image:url('${urlSegura(prod.imagen_url)}');background-size:cover;background-position:center;` : ''}"></div>
           <div>
-            <h4>${prod.nombre}</h4>
-            <span>${formatearPrecio(prod.precio)} · Stock ${prod.stock}</span>
+            <h4>${escapeHTML(prod.nombre)}</h4>
+            <span>${formatearPrecio(prod.precio)} · Stock ${escapeHTML(prod.stock)}</span>
           </div>
         </div>
         <div class="product-item-actions">
           <span class="badge-active">Activo</span>
-          <button type="button" class="btn-mini" data-action="editar" data-id="${prod.id}">Editar</button>
-          <button type="button" class="btn-mini danger" data-action="eliminar" data-id="${prod.id}">Eliminar</button>
+          <button type="button" class="btn-mini" data-action="editar" data-id="${escapeHTML(prod.id)}">Editar</button>
+          <button type="button" class="btn-mini danger" data-action="eliminar" data-id="${escapeHTML(prod.id)}">Eliminar</button>
         </div>
       </div>
     `).join('');

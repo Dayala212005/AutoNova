@@ -12,8 +12,15 @@ CREATE TABLE IF NOT EXISTS usuarios (
     password_hash VARCHAR(255) NOT NULL,
     rol VARCHAR(20) NOT NULL
         CHECK (rol IN ('comprador', 'vendedor', 'admin')),
-    creado_en TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    creado_en TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    -- Protección contra fuerza bruta en el login
+    intentos_fallidos INTEGER NOT NULL DEFAULT 0,
+    bloqueado_hasta TIMESTAMPTZ
 );
+
+-- Para bases ya creadas antes de agregar el bloqueo de login (no hace nada si ya existen)
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS intentos_fallidos INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS bloqueado_hasta TIMESTAMPTZ;
 
 -- 2. PRODUCTS
 CREATE TABLE IF NOT EXISTS productos (
