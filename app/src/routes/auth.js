@@ -4,10 +4,8 @@ const pool = require('../db');
 const { wrap } = require('../utils');
 const { firmarToken, autenticar } = require('../middleware/auth');
 
-// Protección contra fuerza bruta en el login
-const MAX_INTENTOS = 5;        // fallos seguidos antes de bloquear
-const MINUTOS_BLOQUEO = 15;    // duración del bloqueo
-
+const MAX_INTENTOS = 5;
+const MINUTOS_BLOQUEO = 15;
 const HASH_FALSO = bcrypt.hashSync('relleno-no-es-una-clave', 10);
 
 router.post('/register', wrap(async (req, res) => {
@@ -15,14 +13,14 @@ router.post('/register', wrap(async (req, res) => {
   if (!nombre || !email || !password) {
     return res.status(400).json({ error: 'nombre, email y password son obligatorios' });
   }
-  const emailLimpio = String(email).trim().toLowerCase();
+  const emailNormalizado = String(email).trim().toLowerCase();
   const hash = await bcrypt.hash(password, 10);
   try {
     const r = await pool.query(
       `INSERT INTO usuarios (nombre, email, password_hash, rol)
        VALUES ($1, $2, $3, 'comprador')
        RETURNING id, nombre, email, rol`,
-      [nombre, emailLimpio, hash]
+      [nombre, emailNormalizado, hash]
     );
     res.status(201).json(r.rows[0]);
   } catch (e) {
@@ -40,7 +38,7 @@ router.post('/login', wrap(async (req, res) => {
     return res.status(400).json({ error: 'Datos inválidos' });
   }
 
-  const emailLimpio = email.trim().toLowerCase();
+  const emailNormalizado = email.trim().toLowerCase();
 
   const r = await pool.query(
     `SELECT id, nombre, email, rol, password_hash, intentos_fallidos, bloqueado_hasta,
@@ -48,17 +46,15 @@ router.post('/login', wrap(async (req, res) => {
             GREATEST(CEIL(EXTRACT(EPOCH FROM (bloqueado_hasta - NOW()))), 0)::int AS segundos_restantes
      FROM usuarios
      WHERE LOWER(email) = $1`,
-    [emailLimpio]
+    [emailNormalizado]
   );
   const u = r.rows[0];
 
   if (!u) {
-    // Comparación falsa
     await bcrypt.compare(password, HASH_FALSO);
     return res.status(401).json({ error: 'Credenciales incorrectas' });
   }
 
-  // Bloqueo vigente
   if (u.esta_bloqueado) {
     const minutos = Math.max(1, Math.ceil(u.segundos_restantes / 60));
     res.set('Retry-After', String(u.segundos_restantes));
@@ -67,7 +63,6 @@ router.post('/login', wrap(async (req, res) => {
     });
   }
 
-  // Bloqueo ya vencido
   if (u.bloqueado_hasta) {
     await pool.query(
       'UPDATE usuarios SET intentos_fallidos = 0, bloqueado_hasta = NULL WHERE id = $1',
@@ -78,12 +73,11 @@ router.post('/login', wrap(async (req, res) => {
   const ok = await bcrypt.compare(password, u.password_hash);
 
   if (!ok) {
-    // En PostgreSQL
     await pool.query(
       `UPDATE usuarios
-       SET intentos_fallidos = COALESCE(intentos_fallidos, 0) + 1,
+       SET intentos_fallidos = intentos_fallidos + 1,
            bloqueado_hasta = CASE
-             WHEN COALESCE(intentos_fallidos, 0) + 1 >= $2::int
+             WHEN intentos_fallidos + 1 >= $2::int
              THEN NOW() + ($3::int * INTERVAL '1 minute')
              ELSE bloqueado_hasta
            END
@@ -93,7 +87,6 @@ router.post('/login', wrap(async (req, res) => {
     return res.status(401).json({ error: 'Credenciales incorrectas' });
   }
 
-  // Contraseña correcta: se reinicia el contador y el bloqueo
   await pool.query(
     'UPDATE usuarios SET intentos_fallidos = 0, bloqueado_hasta = NULL WHERE id = $1',
     [u.id]
