@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AutoNova - Agencia de Automóviles</title>
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/catalogo.css">
+</head>
+
+<body>
+  <header id="main-navbar"></header>
+
+  <main>
+    <section class="hero-banner-serious">
+      <div class="hero-grid">
+        <div class="hero-content-serious">
+          <p class="hero-tag-serious">Agencia de automóviles · Desde 1990</p>
+          <h1 class="hero-title-serious">Encuentra el <span>auto</span> que va contigo</h1>
+          <p class="hero-desc-serious">Vehículos seleccionados, financiamiento flexible y una experiencia de compra sin
+            complicaciones.</p>
+          <div class="hero-cta-group">
+            <a href="catalogo.html" class="btn btn-primary">Ver catálogo</a>
+            <a href="registro.html" class="btn btn-outline hero-btn-outline-light">Crear cuenta</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog-container" id="catalog">
+      <div class="catalog-header-flex">
+        <h2 class="catalog-title">Catálogo destacado</h2>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="carousel-prev" aria-label="Anterior">&#10094;</button>
+          <button class="carousel-btn" id="carousel-next" aria-label="Siguiente">&#10095;</button>
+        </div>
+      </div>
+
+      <div id="car-grid" class="car-carousel-track"></div>
+    </section>
+
+    <section class="values-section">
+      <div class="values-header">
+        <h2 class="values-title">Valores</h2>
+        <p class="values-subtitle">Los siguientes valores definen a nuestra empresa:</p>
+      </div>
+
+      <div class="values-grid">
+
+        <div class="value-card">
+          <div class="value-number">1</div>
+          <h3 class="value-name">Pasión</h3>
+        </div>
+
+        <div class="value-card">
+          <div class="value-number">2</div>
+          <h3 class="value-name">Efectividad</h3>
+        </div>
+
+        <div class="value-card">
+          <div class="value-number">3</div>
+          <h3 class="value-name">Innovación</h3>
+        </div>
+
+        <div class="value-card">
+          <div class="value-number">4</div>
+          <h3 class="value-name">Confianza</h3>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="institutional-section">
+      <div class="institutional-grid">
+
+        <div class="institutional-content">
+          <p class="institutional-eyebrow">Por qué AutoNova</p>
+          <h2 class="institutional-title">La mejor experiencia en la compra y venta de vehículos</h2>
+          <p class="institutional-desc">
+            Bienvenido a AutoNova. Cada vez son más los clientes que confían en nosotros para encontrar
+            su próximo vehículo y nos confirman su total satisfacción. Todos los autos de nuestro inventario
+            son seleccionados por la agencia, y nuestro equipo de ventas te acompaña en cada paso para que tu
+            experiencia de compra sea sencilla, transparente y segura.
+          </p>
+          <p class="institutional-quote">
+            Permítenos guiarte en el camino hacia tu próximo auto.
+          </p>
+          <div class="institutional-stats">
+            <div class="institutional-stat">
+              <strong>+500</strong>
+              <span>Vehículos entregados</span>
+            </div>
+            <div class="institutional-stat">
+              <strong>98%</strong>
+              <span>Clientes satisfechos</span>
+            </div>
+            <div class="institutional-stat">
+              <strong>24/7</strong>
+              <span>Soporte al cliente</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="institutional-visual">
+          <div class="hero-visual">
+            <div class="hero-slide active" style="background-image:url('assets/img/carro1.png');"></div>
+            <div class="hero-slide" style="background-image:url('assets/img/carro2.png');"></div>
+            <div class="hero-slide" style="background-image:url('assets/img/carro3.png');"></div>
+            <div class="hero-slide" style="background-image:url('assets/img/carro4.png');"></div>
+            <div class="hero-slide" style="background-image:url('assets/img/carro5.png');"></div>
+            <div class="hero-slide" style="background-image:url('assets/img/carro6.png');"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+  </main>
+
+  <div id="main-footer"></div>
+
+  <script src="./js/api.js"></script>
+  <script src="./components/navbar.js"></script>
+  <script src="./components/footer.js"></script>
+  <script src="./js/hero-slider.js"></script>
+  <script src="./js/catalogo.js"></script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('main-navbar');
+      renderFooter('main-footer');
+      initCatalog();
+    });
+  </script>
+</body>
+
+</html>

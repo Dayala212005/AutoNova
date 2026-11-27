@@ -1,0 +1,12 @@
+{
+  "name": "autonova-app",
+  "version": "0.1.0",
+  "main": "server.js",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.5.0",
+    "pg": "^8.23.1"
+  }
+}

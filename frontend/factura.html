@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura - AutoNova</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/catalogo.css">
+</head>
+
+<body>
+    <header id="main-navbar"></header>
+
+    <main>
+        <div class="fx-wrap">
+            <div id="factura-detalle"></div>
+        </div>
+    </main>
+
+    <div id="main-footer"></div>
+
+    <script src="./js/api.js"></script>
+    <script src="./components/navbar.js"></script>
+    <script src="./components/footer.js"></script>
+    <script src="./js/factura.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            renderNavbar('main-navbar');
+            renderFooter('main-footer');
+            initFactura();
+        });
+    </script>
+</body>
+
+</html>
