@@ -493,11 +493,6 @@ Se siguió GitFlow con las ramas:
   `feature/backend-auth`, `feature/backend-productos`,
   `feature/backend-facturas`, `feature/backend-usuarios`,
   `feature/frontend-index`, `feature/frontend-registro`.
-- **`release/*`**: creada desde `Develop` para preparar la entrega final
-  (ajustes menores y documentación); se integra tanto a `main` como a
-  `Develop`.
-- **`hotfix/*`**: solo si se detecta un error en `main` después de la
-  entrega; se crea desde `main` y se integra a `main` y a `Develop`.
 
 **Reglas seguidas:**
 - Los Pull Requests siempre van hacia `Develop` o `main`, nunca una
